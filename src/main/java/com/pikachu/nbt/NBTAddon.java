@@ -15,22 +15,22 @@ public class NBTAddon extends JavaPlugin {
 	private static SkriptAddon addonInstance;
 	private static NBTAddon instance;
 	private static NBTApi nbtApi;
+	private static String minecraftRevision = Bukkit.getServer()
+												.getClass()
+												.getPackage()
+												.getName()
+												.split("\\.")[3];
 
 	@Override
 	public void onEnable() {
-		String version = Bukkit.getServer()
-				.getClass()
-				.getPackage()
-				.getName()
-				.split("\\.")[3];
 		try {
-			nbtApi = (NBTApi) Class.forName(NBTAddon.class.getPackage().getName() + ".nms.NBT_" + version).newInstance();
-			getLogger().info("Using NMS version " + version);
+			nbtApi = (NBTApi) Class.forName(NBTAddon.class.getPackage().getName() + ".nms.NBT_" + minecraftRevision).newInstance();
+			getLogger().info("Using NMS version " + minecraftRevision);
 		} catch (Throwable e) {
 			// Hopefully they wont miss this big mess in console
 			Skript.exception(new RuntimeException(
-					"NBTAddon is not supported on this version (" + version + "). " +
-					"Please do not make an issue about this on Skript's repo."
+						"NBTAddon is not supported on this version (" + minecraftRevision + "). " +
+						"Please do not make an issue about this on Skript's repo."
 					)
 			);
 			return;
@@ -61,5 +61,8 @@ public class NBTAddon extends JavaPlugin {
 		return nbtApi;
 	}
 
+	public static String getMinecraftRevision() {
+		return minecraftRevision;
+	}
 
 }
