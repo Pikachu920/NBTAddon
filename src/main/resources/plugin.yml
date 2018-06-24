@@ -1,0 +1,5 @@
+name: NBTAddon
+description: NBT support for Skript that may or may not be maintained but hopefully wont break!
+main: com.pikachu.nbt.NBTAddon
+version: 1.0
+depend: [Skript]
