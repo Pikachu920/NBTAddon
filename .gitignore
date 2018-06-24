@@ -1,1 +1,14 @@
-dependencies/
+# gradle
+/build/
+/.gradle/
+/out/
+
+# IntelliJ
+/.idea/
+*.iml
+*.ipr
+*.iws
+
+# Project
+/dependencies/
+

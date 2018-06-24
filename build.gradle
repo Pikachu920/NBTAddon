@@ -1,45 +1,48 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 group 'NBTAddon'
-version '1.0'
+version '1.0.0'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 
     mavenCentral()
 
+    // Spigot Repo
     maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+        url 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
 
+    // Skript Repo
     maven {
         url 'https://raw.githubusercontent.com/bensku/mvn-repo/master/'
     }
 
-    maven {
-        url 'https://repo.destroystokyo.com/repository/maven-public/'
-    }
-
-    maven {
-        url 'http://maven.sk89q.com/repo'
-    }
-
-    maven {
-        url 'http://nexus.hc.to/content/repositories/pub_releases'
-    }
-
-    maven {
-        url 'https://jitpack.io'
-    }
 
 }
 
 dependencies {
-    // for nms jars
-    compile fileTree(dir: 'dependencies', include: '*.jar')
-    compile 'org.spigotmc:spigot-api:1.12.1-R0.1-SNAPSHOT'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'ch.njol:skript:2.2-dev33'
+    // CBO/NMS dependency
+    implementation fileTree(dir: 'dependencies', include: '*.jar')
+
+    // Spigot-API
+    implementation 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+
+    // Skript API
+    implementation('ch.njol:skript:2.2-dev35b') {
+        transitive = false // non-transitive since we're only using its API
+    }
+}
+
+processResources {
+    inputs.files 'build.gradle'
+    from sourceSets.main.resources.srcDirs
+    filter(ReplaceTokens, tokens: [version: version])
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.8.1'
 }
