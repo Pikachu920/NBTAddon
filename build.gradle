@@ -1,45 +1,34 @@
 group 'NBTAddon'
-version '1.0'
+version '1.0.0'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = targetCompatibility = 1.8
 
 repositories {
 
     mavenCentral()
 
     maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+        url 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
 
     maven {
         url 'https://raw.githubusercontent.com/bensku/mvn-repo/master/'
     }
 
-    maven {
-        url 'https://repo.destroystokyo.com/repository/maven-public/'
-    }
-
-    maven {
-        url 'http://maven.sk89q.com/repo'
-    }
-
-    maven {
-        url 'http://nexus.hc.to/content/repositories/pub_releases'
-    }
-
-    maven {
-        url 'https://jitpack.io'
-    }
 
 }
 
 dependencies {
     // for nms jars
     compile fileTree(dir: 'dependencies', include: '*.jar')
-    compile 'org.spigotmc:spigot-api:1.12.1-R0.1-SNAPSHOT'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'ch.njol:skript:2.2-dev33'
+    compile 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    compile('ch.njol:skript:2.2-dev35b') {
+        transitive = false
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.8.1'
 }
