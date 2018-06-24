@@ -9,10 +9,12 @@ repositories {
 
     mavenCentral()
 
+    // Spigot Repo
     maven {
         url 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
 
+    // Skript Repo
     maven {
         url 'https://raw.githubusercontent.com/bensku/mvn-repo/master/'
     }
@@ -21,11 +23,15 @@ repositories {
 }
 
 dependencies {
-    // for nms jars
+    // CBO/NMS dependency
     compile fileTree(dir: 'dependencies', include: '*.jar')
+
+    // Spigot-API
     compile 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+
+    // Skript API
     compile('ch.njol:skript:2.2-dev35b') {
-        transitive = false
+        transitive = false // non-transitive since we're only using its API
     }
 }
 
