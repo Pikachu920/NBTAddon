@@ -24,15 +24,13 @@ repositories {
 
 dependencies {
     // CBO/NMS dependency
-    compile fileTree(dir: 'dependencies', include: '*.jar')
+    implementation fileTree(dir: 'dependencies', include: '*.jar')
 
     // Spigot-API
-    compile 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     // Skript API
-    compile('ch.njol:skript:2.2-dev35b') {
-        transitive = false // non-transitive since we're only using its API
-    }
+    compileOnly 'ch.njol:skript:2.2-dev35b'
 }
 
 task wrapper(type: Wrapper) {
